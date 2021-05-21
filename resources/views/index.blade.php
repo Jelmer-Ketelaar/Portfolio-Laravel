@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage | Personal Portfolio Website</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.11/typed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+</head>
+
+<body>
+<div id="loader-wrapper">
+
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+
+</div>
+<div class="scroll-up-btn">
+    <i class="fas fa-angle-up"></i>
+</div>
+@include('layouts/header')
+
+<!-- home section start -->
+<section class="home" id="home">
+    <div class="max-width">
+        <div class="row">
+            <div class="home-content">
+                <div class="text-1">Hello, my name is</div>
+                <div class="text-2">Jelmer Ketelaar</div>
+                <div class="text-3">And I'm a <span class="typing"></span></div>
+                <a class='hire-me' href="{{url('/products')}}">Hire me!</a>
+                {{-- shorthand for <?php echo  $index ?? ''; ?> --}}
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- about section start -->
+<section class="about" id="about">
+    <div class="max-width">
+        <h2 class="title">About me</h2>
+        <div class="about-content">
+            <div class="column left">
+                <img src="/images/profile-1.jpeg" alt="">
+            </div>
+            <div class="column right">
+                <div class="text">I'm Jelmer and I'm a <span class="typing-2"></span></div>
+                <p>My name is Jelmer Ketelaar and I’m nineteen years old. I live in the Netherlands and I’m a student at
+                    ROC DaVinci college in Dordrecht. I study “Application and Media Developer”.</p>
+                <div class="curriculum-vitae">
+                    <div class="content-cv">
+                        <img src="images/cv.png" alt="cv-image" class="cv-image">
+                        <p>I have provided my CV in both English and Dutch. Select your language of preference to get
+                            the right version! </p>
+                        <div class="buttons">
+                            <div class="radio-div">
+                                <input id="radio" class="radio" type="radio"/>
+                                <label class="radio-label" for="radio"><img class="image-england"
+                                                                            alt="united kingdom flag"
+                                                                            src="https://www.countryflags.io/gb/flat/64.png"></label>
+                            </div>
+                            <div class="radio-div-2">
+                                <input id="radio2" class="radio" type="radio"/>
+                                <label class="radio-label" for="radio2"><img class="image-england"
+                                                                             alt="united kingdom flag"
+                                                                             src="https://www.countryflags.io/gb/flat/64.png">
+                                </label>
+                            </div>
+                            <a class="download-button" style="width: 10vw; height: 4vh" download
+                               href="../Download/CV.pdf"><i id="download-icon"
+                                                            class="fas fa-download"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- services section start -->
+<section class="services" id="services">
+    <div class="max-width">
+        <h2 class="title">My services</h2>
+        <div class="serv-content">
+            <div class="card">
+                <div class="box">
+                    <i class="fas fa-laptop-code"></i>
+                    <div class="text">Website Development</div>
+                    <p>What I can create is a good "Back-End" and "Front-End" website for you. I will do this with the
+                        Back-End languages PHP and MYSQL or with for the Front-End I use languages as: Html, Css,
+                        Javascript and JQuery. This could be a webshop were you have to show the products you would like
+                        to sell. Or just a portfolio. Or something different Tell me what you want and I will fulfill
+                        your dream! </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- skills section start -->
+<section class="skills" id="skills">
+    <div class="max-width">
+        <h2 class="title">My skills</h2>
+        <div class="skills-content">
+            <div class="column left">
+                <div class="text">My creative skills & experiences.</div>
+                <p class="p">As you can see I have a progress bar on the right. There you can see (In percentage) how
+                    much I know about the coding language.<span id="dots">...</span>
+                    <span id="more">I have more experience in PHP then javascript, because I have studied PHP more than javascript. And I think PHP is a nicer / easier programming language. In my years of programming in my study (4 years) I have learned a lot. My first half year was javascript and the second half was PHP. That is why I have more experience in PHP then Javascript </span>
+                </p>
+                <button class="readMore-Button" id="myBtn">Read more</button>
+            </div>
+            <div class="column right">
+                <div class="bars">
+                    <div class="info">
+                        <span>HTML</span>
+                        <span>90%</span>
+                    </div>
+                    <div class="line html"></div>
+                </div>
+                <div class="bars">
+                    <div class="info">
+                        <span>CSS</span>
+                        <span>70%</span>
+                    </div>
+                    <div class="line css"></div>
+                </div>
+                <div class="bars">
+                    <div class="info">
+                        <span>JavaScript</span>
+                        <span>55%</span>
+                    </div>
+                    <div class="line js"></div>
+                </div>
+                <div class="bars">
+                    <div class="info">
+                        <span>PHP</span>
+                        <span>70%</span>
+                    </div>
+                    <div class="line php"></div>
+                </div>
+                <div class="bars">
+                    <div class="info">
+                        <span>MySQL</span>
+                        <span>50%</span>
+                    </div>
+                    <div class="line mysql"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- teams section start -->
+<section class="projects" id="projects">
+    <div class="max-width">
+        <h2 class="title">My Projects</h2>
+        <div class="carousel owl-carousel">
+            <div class="card">
+                <div class="box">
+                    <img src="/images/stemwijzer.png" alt="stemwijzer.png">
+                    <div class="text">Stemwijzer</div>
+                    <a target="_blank" href="https://github.com/Jelmer-Ketelaar/Stemwijzer" style="color: white;"> This
+                        is a website that we use in the Netherlands. With this website we can see which political
+                        party suits you best, by means of 30 statements. At the end it shows the top 3 of your
+                        parties </a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="box">
+                    <img src="/images/todolist.png" alt="">
+                    <div class="text">Todolist</div>
+                    <a target="_blank" href="https://github.com/Jelmer-Ketelaar/ToDoList" style="color: white;">This is
+                        a website where you can add/edit and delete a task to a specific list.
+                        You can see which task is assigned to which list by clicking on the list on the navigation
+                        bar. You can also add/edit and delete a list</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="box">
+                    <img src="/images/pokebattle.png" alt="">
+                    <div class="text">Pokebattle</div>
+                    <a target="_blank" href="https://github.com/Jelmer-Ketelaar/Pokebattle" style="color: white;">This
+                        website is a Pokemon battle. Here you see 2 Pokemons next to eachother. You can see all the
+                        information about the pokemon and also the HP that's left after they got attacked </a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="box">
+                    <img src="/images/lingo.png" alt="">
+                    <div class="text">Lingo</div>
+                    <a target="_blank" href="https://github.com/Jelmer-Ketelaar/Lingo" style="color: white;">This is a
+                        Lingo website. Lingo is a word game that is a combination of Mastermind and Bingo. Two
+                        teams of two people compete with each other. If you didn't guess
+                        it after 5 times it shows the answer</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="box">
+                    <img src="/images/horeca.png" alt="">
+                    <div class="text">Horeca-App</div>
+                    <a target="_blank" href="https://github.com/Jelmer-Ketelaar/B1W8O1-Horeca-app"
+                       style="color: white;">This is a website I made in my first year of my study. On this website you
+                        can order a drink and
+                        a snack. After you chose a drink and a snack the price of both will show on the page</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- contact section start -->
+<section class="contact" id="contact">
+    <div class="max-width">
+        <h2 class="title">Contact me</h2>
+        <div class="contact-content">
+            <div class="column left">
+                <div class="text">Get in Touch</div>
+                <p>Send me an email if you would like to contact me.</p>
+                <p> You can also redirect to my Github or Linkedin page, by clicking on them</p>
+                <div class="icons">
+                    <div class="row">
+                        <i class="fas fa-user"></i>
+                        <div class="info">
+                            <div class="head">Name</div>
+                            <div class="sub-title">Jelmer Ketelaar</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <i class="fas fa-envelope"></i>
+                        <div class="info">
+                            <div class="head">Email</div>
+                            <div class="sub-title">jelmer@ketelaar.me</div>
+                        </div>
+                    </div>
+                    <a href="https://github.com/Jelmer-Ketelaar" target="_blank">
+                        <div class="row">
+                            <i class="fab fa-github-square fa-3x"></i>
+                            <div class="info">
+                                <div class="head">Github</div>
+                                <div class="sub-title">Jelmer-Ketelaar</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="https://linkedin.com/in/jelmer-ketelaar-70a783172" target="_blank">
+                        <div class="row">
+                            <i class="fab fa-linkedin fa-3x"></i>
+                            <div class="info">
+                                <div class="head">Linkedin</div>
+                                <div class="sub-title">Jelmer Ketelaar</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="column right">
+                <div class="text">Message me</div>
+                <form class="contact-form" target="_blank" action="mailto:jelmer.contact@gmail.me" method="POST">
+                    <p>If you would like to contact me press this button below.</p>
+                    <p>It will redirect you to your e-mail and automatically fill my Email Address </p>
+                    <br>
+
+                    <div class="button-area">
+                        <input class="send-msg" type="submit" value="Send mail">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- footer section start -->
+<footer>
+    <span>Created By <span class="name"> Jelmer Ketelaar</span> | <span class="far fa-copyright"></span> 2021 All rights reserved.</span>
+</footer>
+
+<script src="/js/script.js"></script>
+</body>
+</html>
