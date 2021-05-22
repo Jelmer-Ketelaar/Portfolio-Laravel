@@ -7,9 +7,9 @@
 
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/products.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"></link>
     <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
+          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"></link>
 
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -21,11 +21,9 @@
 <body>
 
 <div id="loader-wrapper">
-
     <div id="loader"></div>
     <div class="loader-section section-left"></div>
     <div class="loader-section section-right"></div>
-
 </div>
 
 <div class="scroll-up-btn">
@@ -45,6 +43,9 @@
             <li class="register"><a class="button" href="{{ route('register') }}">Register</a></li>
             <li class="login"><a href="{{ route('login') }}" class="menu-btn">Login</a></li>
         </ul>
+        <div class="menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
     </div>
 </nav>
 <!-- home section start -->
@@ -74,16 +75,18 @@
                 <div class="product">
                     <div class="product-content">
                         <div class="product-img">
-                            <img src="images/html-css.png" class="html" alt="product image">
+                            <img src="{{$product->photo}}" class="html" alt="product image">
                         </div>
                         <div class="product-btns">
-                            <button type="button" class="btn-cart"> Add to cart
-                                <span><i class="fas fa-plus" style="outline: none;"></i></span>
-                            </button>
-                            <button wire:click="addToCart({{ $product->id }})" type="button" class="btn-buy"> buy
-                                now
-                                <span><i class="fas fa-shopping-cart"></i></span>
-                            </button>
+                            <form action="">
+                                <button type="button" class="btn-cart"> Add to cart
+                                    <span><i class="fas fa-plus" style="outline: none;"></i></span>
+                                </button>
+                                <button wire:click="addToCart({{ $product->id }})" type="button" class="btn-buy"> buy
+                                    now
+                                    <span><i class="fas fa-shopping-cart"></i></span>
+                                </button>
+                            </form>
                         </div>
                     </div>
                     <div class="product-info">

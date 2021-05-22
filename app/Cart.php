@@ -1,13 +1,14 @@
 <?php
 
 
-namespace App\Models;
+namespace App;
 
 
 class Cart {
     public function __construct()
     {
-        if ($this->get() === null) {
+        if ($this->get() === null)
+        {
             $this->set($this->empty());
         }
     }

@@ -1,15 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Routing\Controller;
 
-use App\Models\Product;
-use Illuminate\Http\Request;
+use App\Cart;
 
 class CartController extends Controller
 {
     public function index()
     {
-        $cart = Product::all();
-        return view('livewire.cart', compact('cart', $cart));
+//        $cart = Cart::all();
+        return view('livewire.cart');
     }
 }

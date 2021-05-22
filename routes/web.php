@@ -9,8 +9,10 @@ Route::get('/', function () {
     return view('/index');
 });
 
-Route::get('/products', 'ProductController@index');
-Route::get('cart', [CartController::class, 'index'])
+Route::get('/products', 'ProductController@index')
+    ->name('product.index');
+
+Route::get('cart', 'CartController@index')
     ->name('cart');
 
 Route::get('/home', function () {
