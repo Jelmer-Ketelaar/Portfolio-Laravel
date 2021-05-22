@@ -26,7 +26,7 @@
 <div class="scroll-up-btn">
     <i class="fas fa-angle-up"></i>
 </div>
-<nav class="navbar sticky">
+<nav class="navbar">
     <div class="max-width">
         <div class="logo"><a href="#home">Portfo<span>lio.</span></a></div>
         <ul class="menu">
@@ -70,34 +70,18 @@
             <div class="column right">
                 <div class="text">I'm Jelmer and I'm a <span class="typing-2"></span></div>
                 <p>My name is Jelmer Ketelaar and I’m nineteen years old. I live in the Netherlands and I’m a student at
-                    ROC DaVinci college in Dordrecht. I study “Application and Media Developer”.</p>
-                <div class="curriculum-vitae">
-                    <div class="content-cv">
-                        <img src="images/cv.png" alt="cv-image" class="cv-image">
-                        <p>I have provided my CV in both English and Dutch. Select your language of preference to get
-                            the right version! </p>
-                        <div class="buttons">
-                            <div class="radio-div">
-                                <input id="radio" class="radio" type="radio"/>
-                                <label class="radio-label" for="radio"><img class="image-england"
-                                                                            alt="united kingdom flag"
-                                                                            src="https://www.countryflags.io/gb/flat/64.png"></label>
-                            </div>
-                            <div class="radio-div-2">
-                                <input id="radio2" class="radio" type="radio"/>
-                                <label class="radio-label" for="radio2"><img class="image-england"
-                                                                             alt="united kingdom flag"
-                                                                             src="https://www.countryflags.io/gb/flat/64.png">
-                                </label>
-                            </div>
-                            <a class="download-button" style="width: 10vw; height: 4vh" download
-                               href="../Download/CV.pdf"><i id="download-icon"
-                                                            class="fas fa-download"></i></a>
-                        </div>
-                    </div>
-                </div>
+                    ROC DaVinci college in Dordrecht. I study “Application and Media Developer”.
+                <p>I have provided my CV in both English and Dutch. Select your language of preference to get
+                    the right version! </p> </p>
+                <a target="_blank" href="Download/CV-en.pdf"><i class="fa fa-download" style="margin-right: 10px;"></i>
+                    Download my English CV</a>
+                <a target="_blank" href="Download/CV.pdf"><i class="fa fa-download" style="margin-right: 10px;"></i>
+                    Download my Dutch CV</a>
             </div>
         </div>
+    </div>
+    </div>
+    </div>
     </div>
 </section>
 <!-- services section start -->

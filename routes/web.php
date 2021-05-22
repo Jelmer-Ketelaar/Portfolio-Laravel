@@ -10,7 +10,7 @@ Route::get('/', function () {
 });
 
 Route::get('/products', 'ProductController@index')
-    ->name('product.index');
+    ->name('product');
 
 Route::get('cart', 'CartController@index')
     ->name('cart');

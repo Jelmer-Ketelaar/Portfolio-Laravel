@@ -5,11 +5,9 @@
 
     <title>Products Page | Personal Portfolio Website</title>
 
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/products.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"></link>
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"></link>
+    <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('css/products.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -26,9 +24,6 @@
     <div class="loader-section section-right"></div>
 </div>
 
-<div class="scroll-up-btn">
-    <i class="fas fa-angle-up"></i>
-</div>
 <div class="scroll-up-btn">
     <i class="fas fa-angle-up"></i>
 </div>
@@ -61,7 +56,7 @@
     </div>
 </section>
 
-<div class="products" id="products">>
+<div class="products" id="products">
     <div class="container">
         <h1 class="lg-title">What I offer</h1>
         <p class="text-light">I offer different types of projects. It could be a website like mine. Or something
