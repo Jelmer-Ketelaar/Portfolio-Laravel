@@ -25,10 +25,10 @@ class LoginController extends Controller {
         logout as performLogout;
     }
 
-    public function logout(Request $request)
+    public function logout(Request $request): \Illuminate\Http\RedirectResponse
     {
         $this->performLogout($request);
-        return redirect()->route('products');
+        return redirect()->route('/products');
     }
 
     /**

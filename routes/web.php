@@ -15,10 +15,6 @@ Route::get('/products', 'ProductController@index')
 Route::get('cart', 'CartController@index')
     ->name('cart');
 
-Route::get('/home', function () {
-    return view('/home');
-});
-
 Route::get('/register', function () {
     return view('/register');
 });
