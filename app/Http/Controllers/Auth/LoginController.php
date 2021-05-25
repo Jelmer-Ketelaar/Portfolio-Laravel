@@ -20,16 +20,7 @@ class LoginController extends Controller {
     |
     */
 
-    use AuthenticatesUsers
-    {
-        logout as performLogout;
-    }
-
-    public function logout(Request $request): \Illuminate\Http\RedirectResponse
-    {
-        $this->performLogout($request);
-        return redirect()->route('/products');
-    }
+    use AuthenticatesUsers;
 
     /**
      * Where to redirect users after login.
