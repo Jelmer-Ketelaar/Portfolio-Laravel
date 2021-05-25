@@ -1,51 +1,42 @@
 <?php
 
-
 namespace App;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Cart {
-    public function __construct()
+class Cart
+{
+    //holds the individual products.
+    //Group of products
+    public $items = null;
+    public $totalQty = 0;
+    public $totalPrice = 0;
+
+    //Pass the old card
+    public function __construct($oldCart)
     {
-        if ($this->get() === null)
-        {
-            $this->set($this->empty());
+        //check if oldCart does exist
+        //if it does exist items will be equal to oldCart items
+        if ($oldCart) {
+            $this->items = $oldCart->items;
+            $this->totalQty = $oldCart->items;
+            $this->totalPrice = $oldCart->items;
         }
     }
 
-    public function add(Product $product): void
+    public function add($item, $id)
     {
-        $cart = $this->get();
-        $cart['products'][] = $product;
-        $this->set($cart);
-    }
-
-    public function remove(int $productId): void
-    {
-        $cart = $this->get();
-        array_splice($cart['products'], array_search($productId, array_column($cart['products'], 'id'), true), 1);
-        $this->set($cart);
-    }
-
-    public function clear(): void
-    {
-        $this->set($this->empty());
-    }
-
-    public function empty(): array
-    {
-        return [
-            'products' => [],
-        ];
-    }
-
-    public function get(): ?array
-    {
-        return request()->session()->get('cart');
-    }
-
-    private function set($cart): void
-    {
-        request()->session()->put('cart', $cart);
+        $storedItem = ['qty' => 0, 'price' => $item->price, 'item' => $item];
+        if ($this->items) {
+            if (array_key_exists($id, $this->items)) {
+                $storedItem = $this->items[$id];
+            }
+        }
+        $storedItem['qty']++;
+        $storedItem['price'] = $item->price * $storedItem['qty'];
+        $this->items[$id] = $storedItem;
+        $this->totalQty++;
+        $this->totalPrice += $item->price;
     }
 }

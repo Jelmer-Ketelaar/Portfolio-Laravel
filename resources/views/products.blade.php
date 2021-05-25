@@ -30,30 +30,38 @@
     <div class="max-width">
         <div class="logo"><a href="/">Portfo<span>lio.</span></a></div>
         <ul class="menu">
-            @if (Auth::user())
-                <li><a href="#home" class="menu-btn">Home</a></li>
-                <li class="cart"><a href="#products" class="menu-btn">Products</a></li>
-                <li class="cart"><a href="{{ route('cart') }}" class="menu-btn">Cart</a></li>
-                <div class="dropdown">
-                    <a class="dropbtn">User account
-                        <i class="fa fa-caret-down"></i>
-                    </a>
-                    <div class="dropdown-content">
-                        <a href="#">Link 1</a>
-                        <a href="#">Link 2</a>
-                        <a href="#">Link 3</a>
-                    </div>
-                </div>
-            @else
-                <li class="register"><a class="button" href="{{ route('register') }}">Register</a></li>
-                <li class="login"><a href="{{ route('login') }}" class="menu-btn">Login</a></li>
-            @endif
+            @foreach($products->chunk(3) as $productChunk)
+                @foreach($productChunk as $product)
+                    @if (Auth::user())
+                        <li><a href="#home" class="menu-btn">Home</a></li>
+                        <li class="cart"><a href="#products" class="menu-btn">Products</a></li>
+                        <li class="cart">
+                            <a href="{{ route('product.addToCart', ['id' => $product->id]) }}"
+                                            class="menu-btn">Cart
+                                <span class="badge">{{ Session::has('cart') ? Session::get('cart')->totalQty : ''   }}</span>
+                            </a>
+                        </li>
+                        <li class="logout"><a href="{{ url('/logout') }}" class="menu-btn">Logout</a></li>
+                    @else
+                        <div class="dropdown">
+                            <a class="dropbtn">User account
+                                <i class="fa fa-caret-down"></i>
+                            </a>
+                            <div class="dropdown-content">
+                                <a href="{{ route('login') }}">Login</a>
+                                <a href="{{ route('register') }}">Register</a>
+                            </div>
+                        </div>
+                    @endif
         </ul>
         <div class="menu-btn">
             <i class="fas fa-bars"></i>
         </div>
+        @endforeach
+        @endforeach
     </div>
 </nav>
+
 <!-- home section start -->
 <section class="home" id="home">
     <div class="max-width">
@@ -66,7 +74,6 @@
         </div>
     </div>
 </section>
-
 <div class="products" id="products">
     <div class="container">
         <h1 class="lg-title">What I offer</h1>
@@ -76,7 +83,7 @@
             a number of projects that I offer. I hope you can find what you are looking for.
             If you can't find it, send me an email and I'll get back to you as soon as possible</p>
         <div class="product-items">
-        @foreach ($products as $product)
+        @foreach($products as $product)
             <!-- single product -->
                 <div class="product">
                     <div class="product-content">
