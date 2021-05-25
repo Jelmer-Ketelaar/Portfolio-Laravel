@@ -36,8 +36,8 @@
                         <li><a href="#home" class="menu-btn">Home</a></li>
                         <li class="cart"><a href="#products" class="menu-btn">Products</a></li>
                         <li class="cart">
-                            <a href="{{ route('product.addToCart', ['id' => $product->id]) }}"
-                                            class="menu-btn">Cart
+                            <a href="{{ route('product.cart') }}"
+                               class="menu-btn">Cart
                                 <span class="badge">{{ Session::has('cart') ? Session::get('cart')->totalQty : ''   }}</span>
                             </a>
                         </li>
@@ -53,12 +53,12 @@
                             </div>
                         </div>
                     @endif
+                @endforeach
+            @endforeach
         </ul>
         <div class="menu-btn">
             <i class="fas fa-bars"></i>
         </div>
-        @endforeach
-        @endforeach
     </div>
 </nav>
 
@@ -92,10 +92,11 @@
                         </div>
                         <div class="product-btns">
                             <form action="">
-                                <button type="button" class="btn-cart"> Add to cart
+                                <a href="{{route('product.addToCart', ['id' => $product->id]) }}" type="button" class="btn-cart"> Add to cart
                                     <span><i class="fas fa-plus" style="outline: none;"></i></span>
-                                </button>
-                                <button wire:click="addToCart({{ $product->id }})" type="button" class="btn-buy"> buy
+                                </a>
+                                <button type="button"
+                                        class="btn-buy"> buy
                                     now
                                     <span><i class="fas fa-shopping-cart"></i></span>
                                 </button>

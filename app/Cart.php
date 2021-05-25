@@ -20,8 +20,8 @@ class Cart
         //if it does exist items will be equal to oldCart items
         if ($oldCart) {
             $this->items = $oldCart->items;
-            $this->totalQty = $oldCart->items;
-            $this->totalPrice = $oldCart->items;
+            $this->totalQty = $oldCart->totalQty;
+            $this->totalPrice = $oldCart->totalPrice;
         }
     }
 
@@ -37,6 +37,7 @@ class Cart
         $storedItem['price'] = $item->price * $storedItem['qty'];
         $this->items[$id] = $storedItem;
         $this->totalQty++;
+//        dd($this->totalPrice, $item->price);
         $this->totalPrice += $item->price;
     }
 }

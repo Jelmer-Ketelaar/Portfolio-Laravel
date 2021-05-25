@@ -32,7 +32,16 @@ class ProductController extends Controller
         $cart = new Cart($oldCart);
         $cart->add($product, $product->id);
         $request->session()->put('cart', $cart);
-        return redirect()->route('product.index');
+        return redirect()->route('product');
+    }
+
+    public function getCart() {
+        if (!Session::has('cart')) {
+            return view('livewire.cart');
+        }
+        $oldCart = Session::get('cart');
+        $cart = new Cart($oldCart);
+        return view('livewire.cart', ['products' => $cart->items, 'totalPrice'  => $cart->totalPrice,]);
     }
 }
         

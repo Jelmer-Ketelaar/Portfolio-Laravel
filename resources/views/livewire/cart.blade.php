@@ -1,43 +1,48 @@
-<div xmlns="http://www.w3.org/1999/html">
-    <h1>Cart</h1>
-    <div class="w-2/3 mx-auto">
-        <div class="bg-white shadow-md rounded my-6">
+@extends('layouts.app')
+<title>Shopping Cart</title>
 
-            <table class="text-left w-full border-collapse">
-                <thead>
-                <tr>
-                    <th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
-                        Name
-                    </th>
-                    <th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
-                        Price
-                    </th>
-                    <th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-grey-light">
-                        Actions
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($cart['products']as $product)
-                    <tr class="hover:bg-grey-lighter">
-                        <td class="py-4 px-6 border-b border-grey-light">{{ $product->name }}</td>
-                        <td class="py-4 px-6 border-b border-grey-light">{{ $product->price }}</td>
-                        <td class="py-4 px-6 border-b border-grey-light">
-                            <a wire:click="removeFromCart({{ $product->id }})"
-                               class="text-green-600 font-bold py-1 px-3 rounded text-xs bg-green hover:bg-green-dark cursor-pointer">Remove</a>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-            <div class="text-right w-full p-6">
 
+@section('content')
+    @if (Session::has('cart'))
+        <div class="row">
+            <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
+                <ul class="list-group">
+                    @foreach($products as $product)
+                        <li class="list-group-item">
+                            <span class="badge">
+                                {{ $product['qty'] }}
+                            </span>
+                            <strong>{{ $product['qty'] ['price'] }}</strong>
+                            <span class="label label-succes">{{ $product['item']}}</span>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary btn-xs dropdown-toggle"
+                                        data-toggle="dropdown">Action <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="Reduce by 1"></a></li>
+                                    <li><a href="Reduce All"></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    @endforeach
+                </ul>
             </div>
-
-            <div class="text-center w-full border-collapse p-6">
-                <span class="text-lg">Your cart is empty!</span>
-            </div>
-
         </div>
-    </div>
-</div>
+        <div class="row">
+            <div class="col-sm6 col-md-6 col-md-offset-3 col-sm-offset-3">
+                <strong>Total: {{ $totalPrice }}</strong>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm6 col-md-6 col-md-offset-3 col-sm-offset-3">
+                <button type="button" class="btn btn-success">Checkout</button>
+            </div>
+        </div>
+    @else
+        <div class="row">
+            <div class="col-sm6 col-md-6 col-md-offset-3 col-sm-offset-3">
+                <h2>There are no items in the Cart!</h2>
+            </div>
+        </div>
+    @endif
+@endsection

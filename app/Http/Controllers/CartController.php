@@ -10,6 +10,6 @@ class CartController extends Controller
     public function index()
     {
 //        $cart = Cart::all();
-        return view('livewire.cart');
+
     }
 }

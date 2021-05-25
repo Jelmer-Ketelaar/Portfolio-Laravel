@@ -12,13 +12,11 @@ Route::get('/', function () {
 Route::get('/products', 'ProductController@index')
     ->name('product');
 
-//Route::get('cart', 'CartController@index')
-//    ->name('cart');
+Route::get('cart', 'ProductController@getCart')
+    ->name('product.cart');
 
-Route::get('/cart/{id}', [
-    'uses' => 'ProductController@getAddToCart',
-    'as' => 'product.addToCart'
-]);
+Route::get('/cart/{id}', 'ProductController@getAddToCart')
+    ->name('product.addToCart');
 
 Route::get('/register', function () {
     return view('/register');
