@@ -1,4 +1,4 @@
-<html lang="en" xmlns:wire="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,15 +30,13 @@
     <div class="max-width">
         <div class="logo"><a href="/">Portfo<span>lio.</span></a></div>
         <ul class="menu">
-            @foreach($products->chunk(3) as $productChunk)
-                @foreach($productChunk as $product)
                     @if (Auth::user())
                         <li><a href="#home" class="menu-btn">Home</a></li>
                         <li class="cart"><a href="#products" class="menu-btn">Products</a></li>
                         <li class="cart">
                             <a href="{{ route('product.cart') }}"
                                class="menu-btn">Cart
-                                <span class="badge">{{ Session::has('cart') ? Session::get('cart')->totalQty : ''   }}</span>
+                                <span>{{ Session::has('cart') ? Session::get('cart')->totalQty : ''   }}</span>
                             </a>
                         </li>
                         <li class="logout"><a href="{{ url('/logout') }}" class="menu-btn">Logout</a></li>
@@ -53,8 +51,6 @@
                             </div>
                         </div>
                     @endif
-                @endforeach
-            @endforeach
         </ul>
         <div class="menu-btn">
             <i class="fas fa-bars"></i>
@@ -93,13 +89,8 @@
                         <div class="product-btns">
                             <form action="">
                                 <a href="{{route('product.addToCart', ['id' => $product->id]) }}" type="button" class="btn-cart"> Add to cart
-                                    <span><i class="fas fa-plus" style="outline: none;"></i></span>
+                                    <span><i class="fas fa-plus"></i></span>
                                 </a>
-                                <button type="button"
-                                        class="btn-buy"> buy
-                                    now
-                                    <span><i class="fas fa-shopping-cart"></i></span>
-                                </button>
                             </form>
                         </div>
                     </div>

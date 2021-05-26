@@ -27,13 +27,12 @@
 </head>
 <body class="font-sans antialiased">
 @include('layouts.header')
-@livewire('header')
+
 <section class="home" id="home">
+    @include('livewire.cart')
     <div class="max-width">
         <div class="row">
-            <div class="home-content">
-                @livewire('cart')
-            </div>
+            <div class="home-content"></div>
         </div>
     </div>
 </section>

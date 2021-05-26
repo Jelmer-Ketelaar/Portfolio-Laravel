@@ -52,6 +52,7 @@ img {
 
 /* product section */
 .products {
+    font-family: 'Poppins', sans-serif;
     background: #f8f9fa;
     padding: 3.2rem 0;
 }
@@ -63,6 +64,7 @@ img {
 }
 
 .product {
+
     margin: 2rem;
     position: relative;
 }
@@ -94,8 +96,11 @@ img {
 .btn-cart, .btn-buy {
     background: transparent;
     border: 1px solid black;
-    padding: 0.8rem 0;
+    border-radius: 15px;
+    padding: 0.8rem 0.4rem;
     width: 125px;
+    margin: 10px;
+    font-size: 15px;
     font-family: inherit;
     text-transform: uppercase;
     cursor: pointer;

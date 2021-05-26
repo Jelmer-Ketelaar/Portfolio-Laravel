@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Session;
 use App\Models\Product;
 use Illuminate\Routing\Controller;
+
 //use Illuminate\Support\Facades\Session;
 
 
@@ -35,13 +36,26 @@ class ProductController extends Controller
         return redirect()->route('product');
     }
 
-    public function getCart() {
+    public function getCart()
+    {
         if (!Session::has('cart')) {
             return view('livewire.cart');
         }
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
-        return view('livewire.cart', ['products' => $cart->items, 'totalPrice'  => $cart->totalPrice,]);
+        return view('livewire.cart', ['products' => $cart->items, 'totalPrice' => $cart->totalPrice,]);
+    }
+
+    public function getCheckout()
+    {
+        if (!Session::has('cart')) {
+            return view('livewire.cart');
+        }
+        $oldCart = Session::get('cart');
+        $cart = new Cart($oldCart);
+        $total = $cart->totalPrice;
+        $products = Product::all();
+        return view('livewire.checkout', ['total' => $total], compact('products'));
     }
 }
         

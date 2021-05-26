@@ -18,6 +18,12 @@ Route::get('cart', 'ProductController@getCart')
 Route::get('/cart/{id}', 'ProductController@getAddToCart')
     ->name('product.addToCart');
 
+Route::get('/checkout', 'ProductController@getCheckout')
+    ->name('checkout');
+
+Route::post('/checkout', 'ProductController@postCheckout')
+    ->name('checkout');
+
 Route::get('/register', function () {
     return view('/register');
 });
