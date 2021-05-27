@@ -19,10 +19,12 @@ Route::get('/cart/{id}', 'ProductController@getAddToCart')
     ->name('product.addToCart');
 
 Route::get('/checkout', 'ProductController@getCheckout')
-    ->name('checkout');
+    ->name('checkout')
+    ->middleware('auth');
 
 Route::post('/checkout', 'ProductController@postCheckout')
-    ->name('checkout');
+    ->name('checkout')
+    ->middleware('auth');
 
 Route::get('/register', function () {
     return view('/register');

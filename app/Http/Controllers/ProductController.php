@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Cart;
-use Illuminate\Http\Request;
-use Session;
+use App\Models\Order;
 use App\Models\Product;
+use Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Routing\Controller;
 
 //use Illuminate\Support\Facades\Session;
@@ -56,6 +58,33 @@ class ProductController extends Controller
         $total = $cart->totalPrice;
         $products = Product::all();
         return view('livewire.checkout', ['total' => $total], compact('products'));
+    }
+
+    public function postCheckout(request $request)
+    {
+        if (!Session::has('cart')) {
+            return redirect()->route('shop.shoppingCart');
+        }
+        $oldCart = Session::get('cart');
+        $cart = new Cart($oldCart);
+        try {
+            $charge = Charge::create(array(
+                "amount" => $cart->totalPrice * 100,
+                "currency" => "euro",
+                "description" => "Test Charge"
+            ));
+            $order = new Order();
+            $order->cart = serialize($cart);
+            $order->address = $request->input('address');
+            $order->name = $request->input('name');
+            $order->payment_id = $charge->id;
+
+            Auth::user()->orders()->save($order) ;
+        } catch (\Exception $e) {
+            return redirect()->route('product')->with('error', $e->getMessage());
+        }
+        Session::forget('cart');
+        return redirect()->route('product')->with('succes', 'Succesfully purchased products!');
     }
 }
         

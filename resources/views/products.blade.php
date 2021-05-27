@@ -70,6 +70,15 @@
         </div>
     </div>
 </section>
+@if (Session::has('succes'))
+    <div class="row">
+        <div class="col-sm-6 col-md-4 col-md-offset-4 col-sm-offset-3">
+            <div id="succes-message" class="alert alert-succes">
+                {{ Session::get('succes') }}
+            </div>
+        </div>
+    </div>
+@endif
 <div class="products" id="products">
     <div class="container">
         <h1 class="lg-title">What I offer</h1>
