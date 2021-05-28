@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 
 //posts = index
@@ -18,7 +17,7 @@ Route::get('cart', 'ProductController@getCart')
 Route::get('/cart/{id}', 'ProductController@getAddToCart')
     ->name('product.addToCart');
 
-Route::get('/checkout', 'ProductController@getCheckout')
+Route::get('checkout', 'ProductController@getCheckout')
     ->name('checkout')
     ->middleware('auth');
 

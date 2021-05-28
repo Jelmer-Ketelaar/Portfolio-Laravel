@@ -1,5 +1,3 @@
-<!doctype html>
-
 <html lang="en">
 <head>
     <!-- Required meta tags -->
@@ -18,56 +16,57 @@
 <body>
 {{-- Begin navbar --}}
 <nav class="navbar">
-        <div class="logo"><a href="/products">Portfo<span>lio</span></a></div>
+    <div class="logo"><a href="/products">Portfo<span>lio</span></a></div>
     <hr>
-        <ul class="menu">
-            @if (Auth::user())
-            @else
-                <div class="dropdown">
-                    <a class="dropbtn">User account
-                        <i class="fa fa-caret-down"></i>
-                    </a>
-                    <div class="dropdown-content">
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    </div>
+    <ul class="menu">
+        @if (Auth::user())
+        @else
+            <div class="dropdown">
+                <a class="dropbtn">User account
+                    <i class="fa fa-caret-down"></i>
+                </a>
+                <div class="dropdown-content">
+                    <a href="{{ route('login') }}">Login</a>
+                    <a href="{{ route('register') }}">Register</a>
                 </div>
-            @endif
-        </ul>
+            </div>
+        @endif
+    </ul>
 </nav>
 {{-- End navbar --}}
 @if (Session::has('cart'))
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                        </thead>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Quantity</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
 
-                        <tbody>
-                        <tr>
-                            @foreach($products as $product)
-                            <th scope="row">{{$product['qty']}}</th>
-                            <td><strong>{{ $product['item'] ['name']  }}</strong></td>
-                            <td><span class="label label-succes">€{{ $product['price'] }}</span></td>
-                            <td>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Action
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">Reduce by 1</a>
-                                        <a class="dropdown-item" href="#">Reduce all</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                        @endforeach
-                    </table>
+        <tbody>
+        <tr>
+            @foreach($products as $product)
+                <th scope="row">{{$product['qty']}}</th>
+                <td><strong>{{ $product['item'] ['name']  }}</strong></td>
+                <td><span class="label label-succes">€{{ $product['price'] }}</span></td>
+                <td>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                            Action
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Reduce by 1</a>
+                            <a class="dropdown-item" href="#">Reduce all</a>
+                        </div>
+                    </div>
+                </td>
+        </tr>
+        </tbody>
+        @endforeach
+    </table>
 
 
     <div class="row">
@@ -84,7 +83,7 @@
 @else
     <div class="row">
         <div class="col-sm6 col-md-6 col-md-offset-3 col-sm-offset-3">
-            <h2>There are no items in the Cart!</h2>
+            <h3>There are no items in the Cart!</h3>
         </div>
     </div>
 @endif

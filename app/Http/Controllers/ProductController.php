@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Cart;
 use App\Models\Order;
 use App\Models\Product;
@@ -13,8 +14,7 @@ use Illuminate\Routing\Controller;
 //use Illuminate\Support\Facades\Session;
 
 
-class ProductController extends Controller
-{
+class ProductController extends Controller {
     /**
      * Display a listing of the resource.
      */
@@ -35,55 +35,47 @@ class ProductController extends Controller
         $cart = new Cart($oldCart);
         $cart->add($product, $product->id);
         $request->session()->put('cart', $cart);
+
         return redirect()->route('product');
     }
 
     public function getCart()
     {
-        if (!Session::has('cart')) {
+        if ( ! Session::has('cart'))
+        {
             return view('livewire.cart');
         }
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
-        return view('livewire.cart', ['products' => $cart->items, 'totalPrice' => $cart->totalPrice,]);
+
+        return view('livewire.cart', ['products' => $cart->items, 'totalPrice' => $cart->totalPrice]);
     }
 
     public function getCheckout()
     {
-        if (!Session::has('cart')) {
+        if ( ! Session::has('cart'))
+        {
             return view('livewire.cart');
         }
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
         $total = $cart->totalPrice;
         $products = Product::all();
-        return view('livewire.checkout', ['total' => $total], compact('products'));
+
+        return view('livewire.checkout', ['products' => $cart->items, 'totalPrice' => $cart->totalPrice]);
     }
 
-    public function postCheckout(request $request)
+    public function postCheckout()
     {
-        if (!Session::has('cart')) {
+        if ( ! Session::has('cart'))
+        {
             return redirect()->route('shop.shoppingCart');
         }
         $oldCart = Session::get('cart');
-        $cart = new Cart($oldCart);
-        try {
-            $charge = Charge::create(array(
-                "amount" => $cart->totalPrice * 100,
-                "currency" => "euro",
-                "description" => "Test Charge"
-            ));
-            $order = new Order();
-            $order->cart = serialize($cart);
-            $order->address = $request->input('address');
-            $order->name = $request->input('name');
-            $order->payment_id = $charge->id;
 
-            Auth::user()->orders()->save($order) ;
-        } catch (\Exception $e) {
-            return redirect()->route('product')->with('error', $e->getMessage());
-        }
+
         Session::forget('cart');
+
         return redirect()->route('product')->with('succes', 'Succesfully purchased products!');
     }
 }
