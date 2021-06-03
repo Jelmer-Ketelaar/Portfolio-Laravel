@@ -6,15 +6,14 @@ namespace App\Http\Controllers;
 use App\Cart;
 use App\Models\Order;
 use App\Models\Product;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Routing\Controller;
 
-//use Illuminate\Support\Facades\Session;
 
-
-class ProductController extends Controller {
+class ProductController extends Controller
+{
     /**
      * Display a listing of the resource.
      */
@@ -41,8 +40,7 @@ class ProductController extends Controller {
 
     public function getCart()
     {
-        if ( ! Session::has('cart'))
-        {
+        if (!Session::has('cart')) {
             return view('livewire.cart');
         }
         $oldCart = Session::get('cart');
@@ -53,8 +51,7 @@ class ProductController extends Controller {
 
     public function getCheckout()
     {
-        if ( ! Session::has('cart'))
-        {
+        if (!Session::has('cart')) {
             return view('livewire.cart');
         }
         $oldCart = Session::get('cart');
@@ -65,16 +62,20 @@ class ProductController extends Controller {
         return view('livewire.checkout', ['products' => $cart->items, 'totalPrice' => $cart->totalPrice]);
     }
 
-    public function postCheckout()
+    public function postCheckout(Request $request)
     {
-        if ( ! Session::has('cart'))
-        {
-            return redirect()->route('shop.shoppingCart');
+        if (!Session::has('cart')) {
+            return redirect()->route('livewire.cart');
         }
         $oldCart = Session::get('cart');
+        $cart = new Cart($oldCart);
 
+        $order = new Order();
+        $order->cart = serialize($cart);
+        $order->address = $request->input('address');
+        $order->name = $request->input('name');
 
-        Session::forget('cart');
+        Auth::user()->orders()->save($order);
 
         return redirect()->route('product')->with('succes', 'Succesfully purchased products!');
     }
