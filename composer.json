@@ -17,7 +17,9 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
         "livewire/livewire": "^2.4",
-        "tightenco/ziggy": "^1.0"
+        "tightenco/ziggy": "^1.0",
+      "ext-mysql_xdevapi": "*",
+        "ext-http": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
