@@ -12,8 +12,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Routing\Controller;
 
 
-class ProductController extends Controller
-{
+class ProductController extends Controller {
     /**
      * Display a listing of the resource.
      */
@@ -24,15 +23,17 @@ class ProductController extends Controller
         return view('products', compact('products', $products));
     }
 
-    public function getAddToCart(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function getAddToCart(Request $request, $id)
     {
-        $product = Product::find($id);
-        //check if cart has been stored in the session.
-        // If this is the case it will retrieve it with the get method
-        // If this is not the case it will be sett to Null
+        // Trying to get product from the database with the eloquent method 'find'
+        $product = Product::find($request->$id);
+        /* Check if cart already exists.
+        If the cart does exist it wil retrieve it.
+        If the cart does not exist, it will be null */
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
-        $cart->add($product, $product->id);
+        $cart->add($product, $product->id, $request->amount);
+
         $request->session()->put('cart', $cart);
 
         return redirect()->route('product');
@@ -40,7 +41,8 @@ class ProductController extends Controller
 
     public function getCart()
     {
-        if (!Session::has('cart')) {
+        if ( ! Session::has('cart'))
+        {
             return view('livewire.cart');
         }
         $oldCart = Session::get('cart');
@@ -51,7 +53,8 @@ class ProductController extends Controller
 
     public function getCheckout()
     {
-        if (!Session::has('cart')) {
+        if ( ! Session::has('cart'))
+        {
             return view('livewire.cart');
         }
         $oldCart = Session::get('cart');
@@ -62,9 +65,11 @@ class ProductController extends Controller
         return view('livewire.checkout', ['products' => $cart->items, 'totalPrice' => $cart->totalPrice]);
     }
 
+
     public function postCheckout(Request $request)
     {
-        if (!Session::has('cart')) {
+        if ( ! Session::has('cart'))
+        {
             return redirect()->route('livewire.cart');
         }
         $oldCart = Session::get('cart');
