@@ -30,27 +30,27 @@
     <div class="max-width">
         <div class="logo"><a href="/">Portfo<span>lio.</span></a></div>
         <ul class="menu">
-                    @if (Auth::user())
-                        <li><a href="#home" class="menu-btn">Home</a></li>
-                        <li class="cart"><a href="#products" class="menu-btn">Products</a></li>
-                        <li class="cart">
-                            <a href="{{ route('product.cart') }}"
-                               class="menu-btn">Cart
-                                <span>{{ Session::has('cart') ? Session::get('cart')->totalQty : ''   }}</span>
-                            </a>
-                        </li>
-                        <li class="logout"><a href="{{ url('/logout') }}" class="menu-btn">Logout</a></li>
-                    @else
-                        <div class="dropdown">
-                            <a class="dropbtn">User account
-                                <i class="fa fa-caret-down"></i>
-                            </a>
-                            <div class="dropdown-content">
-                                <a href="{{ route('login') }}">Login</a>
-                                <a href="{{ route('register') }}">Register</a>
-                            </div>
-                        </div>
-                    @endif
+            @if (Auth::user())
+                <li><a href="#home" class="menu-btn">Home</a></li>
+                <li class="cart"><a href="#products" class="menu-btn">Products</a></li>
+                <li class="cart">
+                    <a href="{{ route('product.cart') }}"
+                       class="menu-btn">Cart
+                        <span>{{ Session::has('cart') ? Session::get('cart')->totalQty : ''   }}</span>
+                    </a>
+                </li>
+                <li class="logout"><a href="{{ url('/logout') }}" class="menu-btn">Logout</a></li>
+            @else
+                <div class="dropdown">
+                    <a class="dropbtn">User account
+                        <i class="fa fa-caret-down"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="{{ route('login') }}">Login</a>
+                        <a href="{{ route('register') }}">Register</a>
+                    </div>
+                </div>
+            @endif
         </ul>
         <div class="menu-btn">
             <i class="fas fa-bars"></i>
@@ -97,7 +97,8 @@
                         </div>
                         <div class="product-btns">
                             <form action="">
-                                <a href="{{route('product.addToCart', ['id' => $product->id]) }}" type="button" class="btn-cart"> Add to cart
+                                <a href="{{route('product.addToCart', ['id' => $product->id]) }}" type="button"
+                                   class="btn-cart"> Add to cart
                                     <span><i class="fas fa-plus"></i></span>
                                 </a>
                             </form>
@@ -125,7 +126,7 @@
     <span>Created By <span class="name"> Jelmer Ketelaar</span> | <span class="far fa-copyright"></span> 2021 All rights reserved.</span>
 </footer>
 
-<script src="/js/script-products.js"></script>
+<script src="{{ asset('js/script-products.js') }}"></script>
 @routes
 <script src="{{ mix('js/app.js') }}" defer></script>
 </body>
