@@ -29,7 +29,7 @@
 @include('layouts.header')
 
 <section class="home" id="home">
-    @include('livewire.cart')
+    @include('shop.cart')
     <div class="max-width">
         <div class="row">
             <div class="home-content"></div>

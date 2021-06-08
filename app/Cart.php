@@ -15,12 +15,8 @@ class Cart {
     public $totalPrice = 0;
 
     //Pass the old card
-    public function __construct(Request $request, $oldCart)
+    public function __construct($oldCart)
     {
-        $getCart = $request->session()->get('cart');
-        $hasCart = $request->session()->has('cart');
-        $forgetCart = $request->session()->forget('cart');
-
         //check if oldCart does exist
         //if it does exist items will be equal to oldCart items
         if ($oldCart)

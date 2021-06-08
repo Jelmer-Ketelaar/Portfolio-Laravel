@@ -49,3 +49,6 @@ $(document).ready(function () {
         loop: true
     });
 });
+
+var stripe = Stripe('pk_test_51IvOsWIjTEeTR2CJaoSnvWGb2OKY1Lvxwr7B7n18HlXXhuf9hIoH8k7CBokiQG1HDFrzEFvD8sPAa2bRATkHpTM400Bg1Y5aHc');
+var elements = stripe.elements();

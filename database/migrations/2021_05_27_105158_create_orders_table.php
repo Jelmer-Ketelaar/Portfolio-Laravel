@@ -17,8 +17,8 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->timestamps();
             $table->integer('user_id');
-            $table->text('cart');
-            $table->text('address');
+            $table->text('cart'); // holds my cart items
+            $table->text('address'); // holds the address information
             $table->string('name');
         });
     }

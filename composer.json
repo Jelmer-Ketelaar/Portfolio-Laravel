@@ -11,15 +11,15 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "hardevine/shoppingcart": "^2.9",
         "inertiajs/inertia-laravel": "^0.4.1",
+        "laravel/cashier": "^12.14",
         "laravel/framework": "^8.12",
         "laravel/legacy-factories": "^1.1",
         "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
         "livewire/livewire": "^2.4",
-        "tightenco/ziggy": "^1.0",
-      "ext-mysql_xdevapi": "*",
-        "ext-http": "*"
+        "stripe/stripe-php": "^7.83",
+        "tightenco/ziggy": "^1.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
