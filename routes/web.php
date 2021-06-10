@@ -12,7 +12,7 @@ Route::get('/products', 'ProductController@index')
     ->name('product');
 
 Route::get('cart', 'ProductController@getCart')
-    ->name('product.cart');
+    ->name('shop.cart');
 
 Route::get('/cart/{id}', 'ProductController@getAddToCart')
     ->name('product.addToCart');

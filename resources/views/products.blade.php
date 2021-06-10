@@ -34,7 +34,7 @@
                         <li><a href="#home" class="menu-btn">Home</a></li>
                         <li class="cart"><a href="#products" class="menu-btn">Products</a></li>
                         <li class="cart">
-                            <a href="{{ route('product.cart') }}"
+                            <a href="{{ route('shop.cart') }}"
                                class="menu-btn">Cart
                                 <span>{{ Session::has('cart') ? Session::get('cart')->totalQty : ''   }}</span>
                             </a>
