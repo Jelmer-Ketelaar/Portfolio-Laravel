@@ -102,4 +102,6 @@
     </div>
 @else <h1>No items</h1>
 @endif
+<script src="https://js.stripe.com/v3/"></script>
+
 </body>
