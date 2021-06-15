@@ -99,7 +99,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/finder" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/http-client-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/http-foundation" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/http-kernel" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/mime" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-ctype" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-iconv" />
@@ -130,6 +129,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/phenx/php-svg-lib" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phenx/php-font-lib" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/cashier" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/http-kernel" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -139,8 +139,6 @@
     <orderEntry type="library" name="typed.js" level="application" />
     <orderEntry type="library" name="waypoints" level="application" />
     <orderEntry type="library" name="OwlCarousel2" level="application" />
-    <orderEntry type="library" name="jquery-3.3.1.slim" level="application" />
-    <orderEntry type="library" name="popper.js" level="application" />
     <orderEntry type="library" name="twitter-bootstrap" level="application" />
     <orderEntry type="library" name="jquery.validate" level="application" />
     <orderEntry type="library" name="additional-methods" level="application" />

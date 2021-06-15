@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StripeController;
 use Illuminate\Support\Facades\Route;
 
 //posts = index
@@ -28,6 +29,9 @@ Route::post('/checkout', 'ProductController@postCheckout')
 Route::get('/register', function () {
     return view('/register');
 });
+
+Route::get('stripe', [StripeController::class, 'stripe']);
+Route::post('stripe', [StripeController::class, 'stripePost'])->name('stripe.post');
 
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 

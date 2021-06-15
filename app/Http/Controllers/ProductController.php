@@ -79,31 +79,6 @@ class ProductController extends Controller {
         }
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
-
-        /*$stripe = new \Stripe\StripeClient(
-            'sk_test_51IvOsWIjTEeTR2CJrdrH0swsotXoQ34XQC0wKtcn2Aj9wSbn8ErJWxJVbv4GnVJhPcEDR6oVe9yGOEyvzFRVZQvo00t2KNqzIl-'
-        );
-        try
-        {
-            $charge = $stripe->charges->create([
-                "amount" => $cart->totalPrice * 100,
-                "currency" => "euro",
-                "source" => $request->input('stripeToken'), //obtained with stripe.js
-                "description" => "Product charge",
-            ]);
-
-            $order = new Order();
-            $order->cart = serialize($cart); // take my php object and convert it to a string and store in database
-            $order->address = $request->input('address');
-            $order->name = $request->input('name');
-            $order->payment_id = $charge->id;
-
-            Auth::user()->orders()->save($order);
-        } catch (\Exception $e)
-        {
-            return redirect()->route('product')->with('error', $e->getMessage());
-        }
-/**/
         Session::forget('cart');
 
         return redirect()->route('product')->with('success', 'Successfully purchased products!');
