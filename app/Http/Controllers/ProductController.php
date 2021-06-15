@@ -39,7 +39,7 @@ class ProductController extends Controller {
 
         $request->session()->put('cart', $cart);
 
-        return redirect()->route('product');
+        return back();
     }
 
     public function getCart()
@@ -80,7 +80,7 @@ class ProductController extends Controller {
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
 
-        $stripe = new \Stripe\StripeClient(
+        /*$stripe = new \Stripe\StripeClient(
             'sk_test_51IvOsWIjTEeTR2CJrdrH0swsotXoQ34XQC0wKtcn2Aj9wSbn8ErJWxJVbv4GnVJhPcEDR6oVe9yGOEyvzFRVZQvo00t2KNqzIl-'
         );
         try
@@ -89,7 +89,7 @@ class ProductController extends Controller {
                 "amount" => $cart->totalPrice * 100,
                 "currency" => "euro",
                 "source" => $request->input('stripeToken'), //obtained with stripe.js
-                "description" => "Test Charge",
+                "description" => "Product charge",
             ]);
 
             $order = new Order();
@@ -97,13 +97,13 @@ class ProductController extends Controller {
             $order->address = $request->input('address');
             $order->name = $request->input('name');
             $order->payment_id = $charge->id;
-            
+
             Auth::user()->orders()->save($order);
         } catch (\Exception $e)
         {
             return redirect()->route('product')->with('error', $e->getMessage());
         }
-
+/**/
         Session::forget('cart');
 
         return redirect()->route('product')->with('success', 'Successfully purchased products!');
