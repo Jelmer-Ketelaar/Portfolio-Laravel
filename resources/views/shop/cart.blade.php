@@ -77,7 +77,7 @@
     <hr>
     <div class="row">
         <div class="col-sm6 col-md-6 col-md-offset-3 col-sm-offset-3">
-            <a href="{{ route('checkout') }}" type="button" class="btn btn-success" style="color: #fff;">Checkout</a>
+            <a href="{{ route('stripe') }}" type="button" class="btn btn-success" style="color: #fff;">Checkout</a>
         </div>
     </div>
 @else

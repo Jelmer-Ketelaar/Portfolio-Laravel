@@ -75,10 +75,11 @@ class ProductController extends Controller {
 
         if ( ! $hasCart)
         {
-            return redirect()->route('shop.shoppingCart');
+            return redirect()->route('shop.stripe');
         }
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
+
         Session::forget('cart');
 
         return redirect()->route('product')->with('success', 'Successfully purchased products!');

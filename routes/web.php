@@ -18,20 +18,18 @@ Route::get('cart', 'ProductController@getCart')
 Route::get('/cart/{id}', 'ProductController@getAddToCart')
     ->name('product.addToCart');
 
-Route::get('checkout', 'ProductController@getCheckout')
-    ->name('checkout')
+Route::get('stripe', 'StripeController@stripe')
+    ->name('stripe')
     ->middleware('auth');
 
-Route::post('/checkout', 'ProductController@postCheckout')
-    ->name('checkout')
+Route::post('/stripe', 'StripeController@stripePost')
+    ->name('stripe.post')
     ->middleware('auth');
 
 Route::get('/register', function () {
     return view('/register');
 });
 
-Route::get('stripe', [StripeController::class, 'stripe']);
-Route::post('stripe', [StripeController::class, 'stripePost'])->name('stripe.post');
 
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 

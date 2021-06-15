@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Cart;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Session;
+use App\Http\Controllers\Order;
 use Stripe;
 
 class StripeController extends Controller
@@ -31,11 +34,11 @@ class StripeController extends Controller
     public function stripePost(Request $request)
     {
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-        Stripe\Charge::create ([
+        Stripe\Charge::create([
             "amount" => 100 * 100,
             "currency" => "usd",
             "source" => $request->stripeToken,
-            "description" => "This payment is tested purpose phpcodingstuff.com"
+            "description" => "Good test"
         ]);
 
         Session::flash('success', 'Payment successful!');
