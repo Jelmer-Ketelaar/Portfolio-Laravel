@@ -16,12 +16,8 @@
 
 </head>
 <body>
-
-<div id="loader-wrapper">
-    <div id="loader"></div>
-    <div class="loader-section section-left"></div>
-    <div class="loader-section section-right"></div>
-</div>
+{{--{{$hasCart = Session::has('cart')}}--}}
+{{--{{$getCart = Session::get('cart')}}--}}
 
 <div class="scroll-up-btn">
     <i class="fas fa-angle-up"></i>
@@ -34,9 +30,8 @@
                 <li><a href="#home" class="menu-btn">Home</a></li>
                 <li class="cart"><a href="#products" class="menu-btn">Products</a></li>
                 <li class="cart">
-                    <a href="{{ route('product.cart') }}"
-                       class="menu-btn">Cart
-                        <span>{{ Session::has('cart') ? Session::get('cart')->totalQty : ''   }}</span>
+                    <a href="{{ route('shop.cart') }}"
+                       class="menu-btn">Cart <span>{{ Session::has('cart') ? Session::get('cart')->totalQty : ''   }}</span>
                     </a>
                 </li>
                 <li class="logout"><a href="{{ url('/logout') }}" class="menu-btn">Logout</a></li>
@@ -128,6 +123,6 @@
 
 <script src="{{ asset('js/script-products.js') }}"></script>
 @routes
-<script src="{{ mix('js/app.js') }}" defer></script>
+<script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>

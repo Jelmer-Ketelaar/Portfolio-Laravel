@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b4df4e3ddc535319a1903a745a00d18a",
+    "content-hash": "b5519fa06941ee1779565954b6715015",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1061,40 +1061,40 @@
         },
         {
             "name": "laravel/cashier",
-            "version": "v12.14.1",
+            "version": "v13.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/cashier-stripe.git",
-                "reference": "5936a1746a9a805315c457b894c2aa0cab8530a2"
+                "reference": "bd5969e320e7de4f71536d188f14b47a8521329e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/cashier-stripe/zipball/5936a1746a9a805315c457b894c2aa0cab8530a2",
-                "reference": "5936a1746a9a805315c457b894c2aa0cab8530a2",
+                "url": "https://api.github.com/repos/laravel/cashier-stripe/zipball/bd5969e320e7de4f71536d188f14b47a8521329e",
+                "reference": "bd5969e320e7de4f71536d188f14b47a8521329e",
                 "shasum": ""
             },
             "require": {
                 "dompdf/dompdf": "^0.8.6|^1.0.1",
                 "ext-json": "*",
-                "illuminate/contracts": "^6.0|^7.0|^8.0",
-                "illuminate/database": "^6.0|^7.0|^8.0",
-                "illuminate/http": "^6.0|^7.0|^8.0",
-                "illuminate/log": "^6.0|^7.0|^8.0",
-                "illuminate/notifications": "^6.0|^7.0|^8.0",
-                "illuminate/routing": "^6.0|^7.0|^8.0",
-                "illuminate/support": "^6.0|^7.0|^8.0",
-                "illuminate/view": "^6.0|^7.0|^8.0",
+                "illuminate/contracts": "^8.0",
+                "illuminate/database": "^8.0",
+                "illuminate/http": "^8.0",
+                "illuminate/log": "^8.0",
+                "illuminate/notifications": "^8.0",
+                "illuminate/routing": "^8.0",
+                "illuminate/support": "^8.0",
+                "illuminate/view": "^8.0",
                 "moneyphp/money": "^3.2",
                 "nesbot/carbon": "^2.0",
-                "php": "^7.2.5|^8.0",
+                "php": "^7.3|^8.0",
                 "stripe/stripe-php": "^7.39",
-                "symfony/http-kernel": "^4.3|^5.0",
+                "symfony/http-kernel": "^5.0",
                 "symfony/polyfill-intl-icu": "^1.22.1"
             },
             "require-dev": {
                 "mockery/mockery": "^1.0",
-                "orchestra/testbench": "^4.0|^5.0|^6.0",
-                "phpunit/phpunit": "^8.0|^9.0"
+                "orchestra/testbench": "^6.0",
+                "phpunit/phpunit": "^9.0"
             },
             "suggest": {
                 "ext-intl": "Allows for more locales besides the default \"en\" when formatting money values."
@@ -1102,7 +1102,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "12.x-dev"
+                    "dev-master": "13.x-dev"
                 },
                 "laravel": {
                     "providers": [
@@ -1112,7 +1112,8 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Laravel\\Cashier\\": "src/"
+                    "Laravel\\Cashier\\": "src/",
+                    "Laravel\\Cashier\\Database\\Factories\\": "database/factories/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1135,7 +1136,7 @@
                 "issues": "https://github.com/laravel/cashier/issues",
                 "source": "https://github.com/laravel/cashier"
             },
-            "time": "2021-06-04T09:07:07+00:00"
+            "time": "2021-06-08T14:51:56+00:00"
         },
         {
             "name": "laravel/framework",

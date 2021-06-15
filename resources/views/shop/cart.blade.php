@@ -16,7 +16,7 @@
 <body>
 {{-- Begin navbar --}}
 <nav class="navbar">
-    <div class="logo"><a href="/products">Portfo<span>lio</span></a></div>
+    <div class="logo"><a href="/products"><span>Portfolio</span></a></div>
     <hr>
     <ul class="menu">
         @if (Auth::user())

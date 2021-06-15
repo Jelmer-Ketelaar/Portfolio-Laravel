@@ -141,5 +141,8 @@
     <orderEntry type="library" name="OwlCarousel2" level="application" />
     <orderEntry type="library" name="jquery-3.3.1.slim" level="application" />
     <orderEntry type="library" name="popper.js" level="application" />
+    <orderEntry type="library" name="twitter-bootstrap" level="application" />
+    <orderEntry type="library" name="jquery.validate" level="application" />
+    <orderEntry type="library" name="additional-methods" level="application" />
   </component>
 </module>

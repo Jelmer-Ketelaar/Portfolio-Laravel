@@ -11,10 +11,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Routing\Controller;
+use Stripe\Charge;
+use Stripe\Stripe;
 
 
-class ProductController extends Controller
-{
+class ProductController extends Controller {
     /**
      * Display a listing of the resource.
      */
@@ -37,12 +38,14 @@ class ProductController extends Controller
         $cart->add($product, $product->id);
 
         $request->session()->put('cart', $cart);
+
         return redirect()->route('product');
     }
 
     public function getCart()
     {
-        if (!Session::has('cart')) {
+        if ( ! Session::has('cart'))
+        {
             return view('shop.cart');
         }
         $oldCart = Session::get('cart');
@@ -53,7 +56,8 @@ class ProductController extends Controller
 
     public function getCheckout()
     {
-        if (!Session::has('cart')) {
+        if ( ! Session::has('cart'))
+        {
             return view('shop.cart');
         }
         $oldCart = Session::get('cart');
@@ -67,33 +71,42 @@ class ProductController extends Controller
 
     public function postCheckout(Request $request)
     {
-        if (!Session::has('cart')) {
+        $hasCart = Session::has('cart');
+
+        if ( ! $hasCart)
+        {
             return redirect()->route('shop.shoppingCart');
         }
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
-        $stripe = new \Stripe\StripeClient([
-            "api_key" => "sk_test_51IvOsWIjTEeTR2CJrdrH0swsotXoQ34XQC0wKtcn2Aj9wSbn8ErJWxJVbv4GnVJhPcEDR6oVe9yGOEyvzFRVZQvo00t2KNqzIl",
-            "stripe_version" => "2020-08-27"
-        ]);
-        try {
-            $charge = Charge::create(array(
+
+        $stripe = new \Stripe\StripeClient(
+            'sk_test_51IvOsWIjTEeTR2CJrdrH0swsotXoQ34XQC0wKtcn2Aj9wSbn8ErJWxJVbv4GnVJhPcEDR6oVe9yGOEyvzFRVZQvo00t2KNqzIl'
+        );
+        try
+        {
+            $charge = $stripe->charges->create([
                 "amount" => $cart->totalPrice * 100,
                 "currency" => "euro",
-                "description" => "Test Charge"
-            ));
+                "source" => $request->input('stripeToken'), //obtained with stripe.js
+                "description" => "Test Charge",
+            ]);
+
             $order = new Order();
-            $order->cart = serialize($cart);
+            $order->cart = serialize($cart); // take my php object and convert it to a string and store in database
             $order->address = $request->input('address');
             $order->name = $request->input('name');
             $order->payment_id = $charge->id;
-            Auth::user();
-        } catch (\Exception $e) {
+            
+            Auth::user()->orders()->save($order);
+        } catch (\Exception $e)
+        {
             return redirect()->route('product')->with('error', $e->getMessage());
         }
 
         Session::forget('cart');
-        return redirect()->route('product')->with('succes', 'Succesfully purchased products!');
+
+        return redirect()->route('product')->with('success', 'Successfully purchased products!');
     }
 }
         
