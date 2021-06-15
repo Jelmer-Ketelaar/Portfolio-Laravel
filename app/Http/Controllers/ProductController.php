@@ -81,7 +81,7 @@ class ProductController extends Controller {
         $cart = new Cart($oldCart);
 
         $stripe = new \Stripe\StripeClient(
-            'sk_test_51IvOsWIjTEeTR2CJrdrH0swsotXoQ34XQC0wKtcn2Aj9wSbn8ErJWxJVbv4GnVJhPcEDR6oVe9yGOEyvzFRVZQvo00t2KNqzIl'
+            'sk_test_51IvOsWIjTEeTR2CJrdrH0swsotXoQ34XQC0wKtcn2Aj9wSbn8ErJWxJVbv4GnVJhPcEDR6oVe9yGOEyvzFRVZQvo00t2KNqzIl-'
         );
         try
         {
