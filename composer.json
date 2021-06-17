@@ -11,7 +11,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "hardevine/shoppingcart": "^2.9",
         "inertiajs/inertia-laravel": "^0.4.1",
-        "laravel/cashier": "^13.0",
+        "laravel/cashier": "^13.1",
         "laravel/framework": "^8.12",
         "laravel/legacy-factories": "^1.1",
         "laravel/sanctum": "^2.6",

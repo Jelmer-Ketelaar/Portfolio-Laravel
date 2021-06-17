@@ -4,8 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Laravel\Cashier\Cashier;
-use App\Models\Cashier\Subscription;
-use App\Models\Cashier\SubscriptionItem;
+use Stripe\Subscription;
+use Stripe\SubscriptionItem;
 
 
 class AppServiceProvider extends ServiceProvider

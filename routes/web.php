@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\StripeController;
 use Illuminate\Support\Facades\Route;
 
 //posts = index
@@ -18,12 +17,12 @@ Route::get('cart', 'ProductController@getCart')
 Route::get('/cart/{id}', 'ProductController@getAddToCart')
     ->name('product.addToCart');
 
-Route::get('stripe', 'StripeController@stripe')
-    ->name('stripe')
+Route::get('checkout', 'ProductController@getCheckout')
+    ->name('checkout')
     ->middleware('auth');
 
-Route::post('/stripe', 'StripeController@stripePost')
-    ->name('stripe.post')
+Route::post('/checkout', 'ProductController@postCheckout')
+    ->name('checkout.post')
     ->middleware('auth');
 
 Route::get('/register', function () {

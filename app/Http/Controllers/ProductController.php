@@ -4,14 +4,21 @@ namespace App\Http\Controllers;
 
 
 use App\Cart;
-use App\Models\Order;
 use App\Models\Product;
 
-use Illuminate\Support\Facades\Auth;
+//use Stripe;
+
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Routing\Controller;
+
 use Stripe\Charge;
+use Stripe\Order;
 use Stripe\Stripe;
 
 
@@ -26,7 +33,7 @@ class ProductController extends Controller {
         return view('products', compact('products', $products));
     }
 
-    public function getAddToCart(Request $request, $id)
+    public function getAddToCart(Request $request, $id): RedirectResponse
     {
         // Trying to get product from the database with the eloquent method 'find'
         $product = Product::find($id);
@@ -54,6 +61,12 @@ class ProductController extends Controller {
         return view('shop.cart', ['products' => $cart->items, 'totalPrice' => $cart->totalPrice]);
     }
 
+
+    /**
+     * success response method.
+     *
+     * @return Factory|Application|View
+     */
     public function getCheckout()
     {
         if ( ! Session::has('cart'))
@@ -68,21 +81,44 @@ class ProductController extends Controller {
         return view('shop.checkout', ['products' => $cart->items, 'totalPrice' => $cart->totalPrice]);
     }
 
-
+    /**
+     * success response method.
+     * @return RedirectResponse
+     * @throws \Stripe\Exception\ApiErrorException
+     */
     public function postCheckout(Request $request)
     {
         $hasCart = Session::has('cart');
+        $oldCart = Session::get('cart');
+        $cart = new Cart($oldCart);
+        $total = $cart->totalPrice;
 
         if ( ! $hasCart)
         {
-            return redirect()->route('shop.stripe');
+            return redirect()->route('shop.checkout');
         }
-        $oldCart = Session::get('cart');
-        $cart = new Cart($oldCart);
+
+        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+
+        \Stripe\PaymentIntent::create([
+            'amount' => $total,
+            'currency' => 'eur',
+            'payment_method_types' => ['card'],
+            "source" => $request->stripeToken,
+            'statement_descriptor' => 'Custom descriptor',
+            'metadata' => [
+                'order_id' => '6735',
+            ],
+        ]);
+
+        $order = new Order();
+        $order->cart = serialize($cart);
+        $order->address = $request->input('address');
+        $order->name = $request->input('name');
+//        Auth::user()->orders()->save($order);
 
         Session::forget('cart');
 
-        return redirect()->route('product')->with('success', 'Successfully purchased products!');
+        return redirect()->route('product')->with(Session::flash('success', 'Payment successful!'));
     }
 }
-        
