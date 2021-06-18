@@ -139,8 +139,5 @@
     <orderEntry type="library" name="typed.js" level="application" />
     <orderEntry type="library" name="waypoints" level="application" />
     <orderEntry type="library" name="OwlCarousel2" level="application" />
-    <orderEntry type="library" name="twitter-bootstrap" level="application" />
-    <orderEntry type="library" name="jquery.validate" level="application" />
-    <orderEntry type="library" name="additional-methods" level="application" />
   </component>
 </module>

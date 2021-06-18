@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Cart;
 use App\Models\Product;
-
-//use Stripe;
+use App\Models\Order;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -16,10 +15,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Routing\Controller;
-
-use Stripe\Charge;
-use Stripe\Order;
-use Stripe\Stripe;
 
 
 class ProductController extends Controller {
@@ -98,24 +93,11 @@ class ProductController extends Controller {
             return redirect()->route('shop.checkout');
         }
 
-        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
-
-        \Stripe\PaymentIntent::create([
-            'amount' => $total,
-            'currency' => 'eur',
-            'payment_method_types' => ['card'],
-            "source" => $request->stripeToken,
-            'statement_descriptor' => 'Custom descriptor',
-            'metadata' => [
-                'order_id' => '6735',
-            ],
-        ]);
-
         $order = new Order();
         $order->cart = serialize($cart);
         $order->address = $request->input('address');
         $order->name = $request->input('name');
-//        Auth::user()->orders()->save($order);
+        $order->save();
 
         Session::forget('cart');
 

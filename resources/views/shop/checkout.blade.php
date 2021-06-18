@@ -18,14 +18,7 @@
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.js"></script>
     <script src="https://js.stripe.com/v3/"></script>
-    <script>
-        const stripe = Stripe('stripe-public-key');
 
-        const elements = stripe.elements();
-        const cardElement = elements.create('card');
-
-        cardElement.mount('#card-element');
-    </script>
 
 
     <title>Checkout Page</title>

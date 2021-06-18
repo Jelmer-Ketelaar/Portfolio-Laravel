@@ -15,12 +15,11 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
-            $table->integer('user_id');
+            $table->integer('user_id')->nullable(false);
             $table->text('cart');
             $table->text('address');
-            $table->string('name');
-            $table->string('payment_id'); // when ever i make a purchase on stripe. The payment has an ID
+            $table->string('name')->default('');
+            $table->timestamps();
         });
     }
 
