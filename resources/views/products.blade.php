@@ -31,7 +31,8 @@
                 <li class="cart"><a href="#products" class="menu-btn">Products</a></li>
                 <li class="cart">
                     <a href="{{ route('shop.cart') }}"
-                       class="menu-btn">Cart <span>{{ Session::has('cart') ? Session::get('cart')->totalQty : ''   }}</span>
+                       class="menu-btn">Cart
+                        <span>{{ Session::has('cart') ? Session::get('cart')->totalQty : ''   }}</span>
                     </a>
                 </li>
                 <li class="logout"><a href="{{ url('/logout') }}" class="menu-btn">Logout</a></li>
@@ -107,11 +108,40 @@
                             <p class="product-price">€ {{ $product->price }}</p>
                         </div>
 
+                        <button>
+                            <i id="info" onclick="openPopup({{ $product->id }})"><span>Meer Informatie</span></i>
+                        </button>
                         <p class="product_description">{{ $product->description }}</p>
                     </div>
                 </div>
 
                 <!-- end of single product -->
+                <!-- Modal Example Start-->
+                <div aria-hidden="true" aria-labelledby="productPopup" class="modal fade"
+                     id="productPopup"
+                     role="dialog" tabindex="-1">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="demoModalLabel">{{$product->name}}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Welcome, Websolutionstuff !!
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                </button>
+                                <button type="button" class="btn btn-primary">Save
+                                    changes
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal Example End-->
             @endforeach
         </div>
     </div>
@@ -122,7 +152,6 @@
 </footer>
 
 <script src="{{ asset('js/script-products.js') }}"></script>
-@routes
 <script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>

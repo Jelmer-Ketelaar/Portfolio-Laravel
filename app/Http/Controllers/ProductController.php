@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Routing\Controller;
 
 
-class ProductController extends Controller {
+class ProductController extends Controller
+{
     /**
      * Display a listing of the resource.
      */
@@ -46,8 +47,7 @@ class ProductController extends Controller {
 
     public function getCart()
     {
-        if ( ! Session::has('cart'))
-        {
+        if (!Session::has('cart')) {
             return view('shop.cart');
         }
         $oldCart = Session::get('cart');
@@ -64,8 +64,7 @@ class ProductController extends Controller {
      */
     public function getCheckout()
     {
-        if ( ! Session::has('cart'))
-        {
+        if (!Session::has('cart')) {
             return view('shop.cart');
         }
         $oldCart = Session::get('cart');
@@ -88,8 +87,7 @@ class ProductController extends Controller {
         $cart = new Cart($oldCart);
         $total = $cart->totalPrice;
 
-        if ( ! $hasCart)
-        {
+        if (!$hasCart) {
             return redirect()->route('shop.checkout');
         }
 

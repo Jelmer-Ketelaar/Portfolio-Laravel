@@ -50,5 +50,18 @@ $(document).ready(function () {
     });
 });
 
-var stripe = Stripe('pk_test_51IvOsWIjTEeTR2CJaoSnvWGb2OKY1Lvxwr7B7n18HlXXhuf9hIoH8k7CBokiQG1HDFrzEFvD8sPAa2bRATkHpTM400Bg1Y5aHc');
-var elements = stripe.elements();
+function openPopup($id, $type) {
+    let $url = '/products' + $id;
+    if ($type !== undefined && $type !== null) {
+        $url = $url + '?type=' + $type;
+    }
+    const $productPopup = document.getElementById("productPopup");
+    const $body = document.getElementById("body");
+
+    $productPopup.remove();
+    $url.success(function ($result) {
+        $body.append($result);
+        $productPopup.modal('show');
+    })
+}
+
