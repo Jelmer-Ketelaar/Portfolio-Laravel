@@ -30,5 +30,15 @@ class CategorySeeder extends Seeder
             'name' => 'Laravel/Symfony',
         ]);
         $category->save();
+
+        $category = new Category([
+            'name' => 'HTML/CSS/Javascript',
+        ]);
+        $category->save();
+
+        $category = new Category([
+            'name' => 'C#',
+        ]);
+        $category->save();
     }
 }

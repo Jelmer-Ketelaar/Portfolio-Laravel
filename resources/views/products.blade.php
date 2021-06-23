@@ -84,15 +84,19 @@
             a number of projects that I offer. I hope you can find what you are looking for.
             If you can't find it, send me an email and I'll get back to you as soon as possible</p>
         <br>
+        <form action="{{ route('categories') }}" method="POST">
+            @csrf
             <div class="custom-select" style="width:200px;">
                 <select name="categories">
-                    @foreach($categories as $category)
+                    @foreach(App\Models\Category::all() as $category)
                         <option value="{{$category->id}}">{{$category->name}}</option>
                     @endforeach
                 </select>
                 <button type="submit">Submit</button>
             </div>
+        </form>
         <div class="product-items">
+{{--        {{ dd($products) }}--}}
         @foreach($products as $product)
             <!-- single product -->
                 <div class="product">

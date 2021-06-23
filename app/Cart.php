@@ -12,13 +12,14 @@ class Cart
 {
     //holds the individual products.
     //Group of products
-    public $items = null;
+    public $items = [];
     public $totalQty = 0;
     public $totalPrice = 0;
 
     //Pass the old card
-    public function __construct($oldCart)
+    public function __construct()
     {
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
         //check if oldCart does exist
         //if it does exist items will be equal to oldCart items
         if ($oldCart) {
@@ -26,6 +27,11 @@ class Cart
             $this->totalQty = $oldCart->totalQty;
             $this->totalPrice = $oldCart->totalPrice;
         }
+        $this->save();
+    }
+
+    public function save() {
+        session()->put('cart', $this);
     }
 
     public function add($item, $id)
@@ -42,6 +48,7 @@ class Cart
         $this->totalQty++;
 //        dd($this->totalPrice, $item->price);
         $this->totalPrice += $item->price;
+        $this->save();
     }
 
     public function reduceByOne($id)
@@ -54,6 +61,7 @@ class Cart
         if ($this->items[$id]['qty'] <= 0) {
             unset($this->items[$id]);
         }
+        $this->save();
     }
 
     public function removeItem($id)
@@ -61,6 +69,7 @@ class Cart
         $this->totalQty -= $this->items[$id] ['qty'];
         $this->totalPrice -= $this->items[$id] ['price'];
         unset($this->items[$id]);
+        $this->save();
     }
 
     public function addByOne($id)
@@ -69,5 +78,6 @@ class Cart
         $this->items [$id] ['price'] += $this->items[$id] ['item'] ['price'];
         $this->totalQty++;
         $this->totalPrice += $this->items[$id] ['item'] ['price'];
+        $this->save();
     }
 }

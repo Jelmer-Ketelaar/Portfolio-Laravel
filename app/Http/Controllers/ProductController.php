@@ -4,17 +4,15 @@ namespace App\Http\Controllers;
 
 
 use App\Cart;
-use App\Models\Category;
-use App\Models\Product;
 use App\Models\Order;
-
+use App\Models\Product;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
 
 
 class ProductController extends Controller
@@ -48,11 +46,11 @@ class ProductController extends Controller
 
     public function getReduceByOne(Request $request, $id)
     {
-        $oldCart = Session::has('cart') ? Session::get('cart') : null;
-        $cart = new Cart($oldCart);
+        /*        $oldCart = Session::has('cart') ? Session::get('cart') : null;*/
+        $cart = new Cart();
         $cart->reduceByOne($id);
 
-        $request->session()->put('cart', $cart);
+/*        $request->session()->put('cart', $cart);*/
         return redirect()->route('shop.cart');
     }
 
@@ -132,15 +130,12 @@ class ProductController extends Controller
         return redirect()->route('product')->with(Session::flash('success', 'Payment successful!'));
     }
 
-    public function create()
-    {
-        $categories = Category::all();
-        return view('admin')->with('categories' , $categories);
-    }
-
     public function filter(Request $request)
     {
-        $products = Product::where('category_id', $request->input('categories'));
+//        dd($request);
+//        $products = DB::table('products')->where('category_id')
+        $products = Product::where('category_id', $request->input('categories'))->get();
+//        dd($request->input('categories'));
         return view('products', compact('products', $products));
     }
 }
