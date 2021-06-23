@@ -17,6 +17,15 @@ Route::get('cart', 'ProductController@getCart')
 Route::get('/cart/{id}', 'ProductController@getAddToCart')
     ->name('product.addToCart');
 
+Route::get('/remove{id}', 'ProductController@getRemoveItem')
+    ->name('product.remove');
+
+Route::get('/reduce/{id}', 'ProductController@getReduceByOne')
+    ->name('product.reduceByOne');
+
+Route::get('/add{id}', 'ProductController@getAddByOne')
+    ->name('product.addByOne');
+
 Route::get('checkout', 'ProductController@getCheckout')
     ->name('checkout')
     ->middleware('auth');
@@ -24,6 +33,9 @@ Route::get('checkout', 'ProductController@getCheckout')
 Route::post('/checkout', 'ProductController@postCheckout')
     ->name('checkout.post')
     ->middleware('auth');
+
+Route::post('/categories', 'ProductController@filter')
+    ->name('categories');
 
 Route::get('/register', function () {
     return view('/register');

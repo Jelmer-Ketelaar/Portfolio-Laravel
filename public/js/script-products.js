@@ -50,18 +50,3 @@ $(document).ready(function () {
     });
 });
 
-function openPopup($id, $type) {
-    let $url = '/products' + $id;
-    if ($type !== undefined && $type !== null) {
-        $url = $url + '?type=' + $type;
-    }
-    const $productPopup = document.getElementById("productPopup");
-    const $body = document.getElementById("body");
-
-    $productPopup.remove();
-    $url.success(function ($result) {
-        $body.append($result);
-        $productPopup.modal('show');
-    })
-}
-

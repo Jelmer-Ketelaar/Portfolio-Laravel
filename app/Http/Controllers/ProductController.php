@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Cart;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\Order;
 
@@ -12,13 +13,13 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Routing\Controller;
 
 
 class ProductController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
@@ -43,6 +44,36 @@ class ProductController extends Controller
         $request->session()->put('cart', $cart);
 
         return back();
+    }
+
+    public function getReduceByOne(Request $request, $id)
+    {
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+        $cart->reduceByOne($id);
+
+        $request->session()->put('cart', $cart);
+        return redirect()->route('shop.cart');
+    }
+
+    public function getRemoveItem(Request $request, $id)
+    {
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+        $cart->removeItem($id);
+
+        $request->session()->put('cart', $cart);
+        return redirect()->route('shop.cart');
+    }
+
+    public function getAddByOne(Request $request, $id)
+    {
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+        $cart->addByOne($id);
+
+        $request->session()->put('cart', $cart);
+        return redirect()->route('shop.cart');
     }
 
     public function getCart()
@@ -78,7 +109,6 @@ class ProductController extends Controller
     /**
      * success response method.
      * @return RedirectResponse
-     * @throws \Stripe\Exception\ApiErrorException
      */
     public function postCheckout(Request $request)
     {
@@ -100,5 +130,17 @@ class ProductController extends Controller
         Session::forget('cart');
 
         return redirect()->route('product')->with(Session::flash('success', 'Payment successful!'));
+    }
+
+    public function create()
+    {
+        $categories = Category::all();
+        return view('admin')->with('categories' , $categories);
+    }
+
+    public function filter(Request $request)
+    {
+        $products = Product::where('category_id', $request->input('categories'));
+        return view('products', compact('products', $products));
     }
 }

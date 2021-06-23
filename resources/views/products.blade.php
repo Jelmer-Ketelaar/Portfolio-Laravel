@@ -83,6 +83,15 @@
             On this page I have
             a number of projects that I offer. I hope you can find what you are looking for.
             If you can't find it, send me an email and I'll get back to you as soon as possible</p>
+        <br>
+            <div class="custom-select" style="width:200px;">
+                <select name="categories">
+                    @foreach($categories as $category)
+                        <option value="{{$category->id}}">{{$category->name}}</option>
+                    @endforeach
+                </select>
+                <button type="submit">Submit</button>
+            </div>
         <div class="product-items">
         @foreach($products as $product)
             <!-- single product -->
@@ -107,9 +116,9 @@
                             </p>
                             <p class="product-price">€ {{ $product->price }}</p>
                         </div>
-
-                        <button>
-                            <i id="info" onclick="openPopup({{ $product->id }})"><span>Meer Informatie</span></i>
+                        <button type="button" class="btn btn-information m-2" data-toggle="modal"
+                                data-target="#demoModal{{$product->id}}">
+                            Information
                         </button>
                         <p class="product_description">{{ $product->description }}</p>
                     </div>
@@ -117,9 +126,8 @@
 
                 <!-- end of single product -->
                 <!-- Modal Example Start-->
-                <div aria-hidden="true" aria-labelledby="productPopup" class="modal fade"
-                     id="productPopup"
-                     role="dialog" tabindex="-1">
+                <div class="modal fade" id="demoModal{{$product->id}}" tabindex="-1" role="dialog"
+                     aria-labelledby="demoModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -129,14 +137,12 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                Welcome, Websolutionstuff !!
+                                <p>{{ $product->description }}</p>
+                                <p>€{{ $product->price }}</p>
+
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
-                                </button>
-                                <button type="button" class="btn btn-primary">Save
-                                    changes
-                                </button>
+                                <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
