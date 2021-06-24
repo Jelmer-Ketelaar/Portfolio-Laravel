@@ -28,15 +28,14 @@ class ProductController extends Controller
         return view('products', compact('products', $products));
     }
 
-    public function getAddToCart(Request $request, $id): RedirectResponse
+    public function getAddToCart(Request $request, $id)
     {
         // Trying to get product from the database with the eloquent method 'find'
         $product = Product::find($id);
         /* Check if cart already exists.
         If the cart does exist it wil retrieve it.
         If the cart does not exist, it will be null */
-        $oldCart = Session::has('cart') ? Session::get('cart') : null;
-        $cart = new Cart($oldCart);
+        $cart = new Cart();
         $cart->add($product, $product->id);
 
         $request->session()->put('cart', $cart);
@@ -44,20 +43,19 @@ class ProductController extends Controller
         return back();
     }
 
-    public function getReduceByOne(Request $request, $id)
+    public function getReduceByOne($id)
     {
-        /*        $oldCart = Session::has('cart') ? Session::get('cart') : null;*/
+//        $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart();
         $cart->reduceByOne($id);
 
-/*        $request->session()->put('cart', $cart);*/
+        /*        $request->session()->put('cart', $cart);  */
         return redirect()->route('shop.cart');
     }
 
     public function getRemoveItem(Request $request, $id)
     {
-        $oldCart = Session::has('cart') ? Session::get('cart') : null;
-        $cart = new Cart($oldCart);
+        $cart = new Cart();
         $cart->removeItem($id);
 
         $request->session()->put('cart', $cart);
@@ -66,20 +64,19 @@ class ProductController extends Controller
 
     public function getAddByOne(Request $request, $id)
     {
-        $oldCart = Session::has('cart') ? Session::get('cart') : null;
-        $cart = new Cart($oldCart);
+        $cart = new Cart();
         $cart->addByOne($id);
 
         $request->session()->put('cart', $cart);
         return redirect()->route('shop.cart');
     }
 
-    public function getCart()
+    public function getCart(Request $request)
     {
-        if (!Session::has('cart')) {
+        if ($request->session()->has('cart')) {
             return view('shop.cart');
         }
-        $oldCart = Session::get('cart');
+        $oldCart = $request->session()->get('cart');
         $cart = new Cart($oldCart);
 
         return view('shop.cart', ['products' => $cart->items, 'totalPrice' => $cart->totalPrice]);
@@ -91,12 +88,12 @@ class ProductController extends Controller
      *
      * @return Factory|Application|View
      */
-    public function getCheckout()
+    public function getCheckout(Request $request)
     {
-        if (!Session::has('cart')) {
+        if (!$request->session()->has('cart')) {
             return view('shop.cart');
         }
-        $oldCart = Session::get('cart');
+        $oldCart = $request->session()->get('cart');
         $cart = new Cart($oldCart);
         $total = $cart->totalPrice;
         $products = Product::all();
@@ -110,8 +107,8 @@ class ProductController extends Controller
      */
     public function postCheckout(Request $request)
     {
-        $hasCart = Session::has('cart');
-        $oldCart = Session::get('cart');
+        $hasCart = $request->session()->has('cart');
+        $oldCart = $request->session()->get('cart');
         $cart = new Cart($oldCart);
         $total = $cart->totalPrice;
 
@@ -125,7 +122,7 @@ class ProductController extends Controller
         $order->name = $request->input('name');
         $order->save();
 
-        Session::forget('cart');
+        $request->session()->forget('cart');
 
         return redirect()->route('product')->with(Session::flash('success', 'Payment successful!'));
     }
