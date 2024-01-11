@@ -12,12 +12,7 @@ class CartServiceProvider extends ServiceProvider {
      *
      * @return void
      */
-    public function register()
-    {
-        $this->app->bind('jcart', function () {
-            return new Cart();
-    });
-    }
+
 
     /**
      * Bootstrap services.

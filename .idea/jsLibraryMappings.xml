@@ -2,5 +2,6 @@
 <project version="4">
   <component name="JavaScriptLibraryMappings">
     <file url="PROJECT" libraries="{OwlCarousel2, bootstrap, font-awesome, jquery-3.5.1, typed.js, waypoints}" />
+    <includedPredefinedLibrary name="Node.js Core" />
   </component>
 </project>

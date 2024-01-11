@@ -1,4 +1,4 @@
-<html lang="en" xmlns:wire="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,12 +16,8 @@
 
 </head>
 <body>
-
-<div id="loader-wrapper">
-    <div id="loader"></div>
-    <div class="loader-section section-left"></div>
-    <div class="loader-section section-right"></div>
-</div>
+{{--{{$hasCart = Session::has('cart')}}--}}
+{{--{{$getCart = Session::get('cart')}}--}}
 
 <div class="scroll-up-btn">
     <i class="fas fa-angle-up"></i>
@@ -30,35 +26,31 @@
     <div class="max-width">
         <div class="logo"><a href="/">Portfo<span>lio.</span></a></div>
         <ul class="menu">
-            @foreach($products->chunk(3) as $productChunk)
-                @foreach($productChunk as $product)
-                    @if (Auth::user())
-                        <li><a href="#home" class="menu-btn">Home</a></li>
-                        <li class="cart"><a href="#products" class="menu-btn">Products</a></li>
-                        <li class="cart">
-                            <a href="{{ route('product.addToCart', ['id' => $product->id]) }}"
-                                            class="menu-btn">Cart
-                                <span class="badge">{{ Session::has('cart') ? Session::get('cart')->totalQty : ''   }}</span>
-                            </a>
-                        </li>
-                        <li class="logout"><a href="{{ url('/logout') }}" class="menu-btn">Logout</a></li>
-                    @else
-                        <div class="dropdown">
-                            <a class="dropbtn">User account
-                                <i class="fa fa-caret-down"></i>
-                            </a>
-                            <div class="dropdown-content">
-                                <a href="{{ route('login') }}">Login</a>
-                                <a href="{{ route('register') }}">Register</a>
-                            </div>
-                        </div>
-                    @endif
+            @if (Auth::user())
+                <li><a href="#home" class="menu-btn">Home</a></li>
+                <li class="cart"><a href="#products" class="menu-btn">Products</a></li>
+                <li class="cart">
+                    <a href="{{ route('shop.cart') }}"
+                       class="menu-btn">Cart
+                        <span>{{ Session::has('cart') ? Session::get('cart')->totalQty : ''   }}</span>
+                    </a>
+                </li>
+                <li class="logout"><a href="{{ url('/logout') }}" class="menu-btn">Logout</a></li>
+            @else
+                <div class="dropdown">
+                    <a class="dropbtn">User account
+                        <i class="fa fa-caret-down"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="{{ route('login') }}">Login</a>
+                        <a href="{{ route('register') }}">Register</a>
+                    </div>
+                </div>
+            @endif
         </ul>
         <div class="menu-btn">
             <i class="fas fa-bars"></i>
         </div>
-        @endforeach
-        @endforeach
     </div>
 </nav>
 
@@ -74,6 +66,15 @@
         </div>
     </div>
 </section>
+@if (Session::has('succes'))
+    <div class="row">
+        <div class="col-sm-6 col-md-4 col-md-offset-4 col-sm-offset-3">
+            <div id="succes-message" class="alert alert-succes">
+                {{ Session::get('succes') }}
+            </div>
+        </div>
+    </div>
+@endif
 <div class="products" id="products">
     <div class="container">
         <h1 class="lg-title">What I offer</h1>
@@ -82,7 +83,20 @@
             On this page I have
             a number of projects that I offer. I hope you can find what you are looking for.
             If you can't find it, send me an email and I'll get back to you as soon as possible</p>
+        <br>
+        <form action="{{ route('categories') }}" method="POST">
+            @csrf
+            <div class="custom-select" style="width:200px;">
+                <select name="categories">
+                    @foreach(App\Models\Category::all() as $category)
+                        <option value="{{$category->id}}">{{$category->name}}</option>
+                    @endforeach
+                </select>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
         <div class="product-items">
+{{--        {{ dd($products) }}--}}
         @foreach($products as $product)
             <!-- single product -->
                 <div class="product">
@@ -92,13 +106,10 @@
                         </div>
                         <div class="product-btns">
                             <form action="">
-                                <button type="button" class="btn-cart"> Add to cart
-                                    <span><i class="fas fa-plus" style="outline: none;"></i></span>
-                                </button>
-                                <button wire:click="addToCart({{ $product->id }})" type="button" class="btn-buy"> buy
-                                    now
-                                    <span><i class="fas fa-shopping-cart"></i></span>
-                                </button>
+                                <a href="{{route('product.addToCart', ['id' => $product->id]) }}" type="button"
+                                   class="btn-cart"> Add to cart
+                                    <span><i class="fas fa-plus"></i></span>
+                                </a>
                             </form>
                         </div>
                     </div>
@@ -109,12 +120,38 @@
                             </p>
                             <p class="product-price">€ {{ $product->price }}</p>
                         </div>
-
+                        <button type="button" class="btn btn-information m-2" data-toggle="modal"
+                                data-target="#demoModal{{$product->id}}">
+                            Information
+                        </button>
                         <p class="product_description">{{ $product->description }}</p>
                     </div>
                 </div>
 
                 <!-- end of single product -->
+                <!-- Modal Example Start-->
+                <div class="modal fade" id="demoModal{{$product->id}}" tabindex="-1" role="dialog"
+                     aria-labelledby="demoModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="demoModalLabel">{{$product->name}}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>{{ $product->description }}</p>
+                                <p>€{{ $product->price }}</p>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal Example End-->
             @endforeach
         </div>
     </div>
@@ -124,8 +161,7 @@
     <span>Created By <span class="name"> Jelmer Ketelaar</span> | <span class="far fa-copyright"></span> 2021 All rights reserved.</span>
 </footer>
 
-<script src="/js/script-products.js"></script>
-@routes
-<script src="{{ mix('js/app.js') }}" defer></script>
+<script src="{{ asset('js/script-products.js') }}"></script>
+<script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>

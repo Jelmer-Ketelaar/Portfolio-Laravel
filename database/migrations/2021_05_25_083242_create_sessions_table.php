@@ -11,7 +11,7 @@ class CreateSessionsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();

@@ -2,16 +2,22 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Cart;
-use Illuminate\Http\Request;
-use Session;
+use App\Models\Order;
 use App\Models\Product;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-//use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Session;
 
 
 class ProductController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
@@ -22,17 +28,111 @@ class ProductController extends Controller
         return view('products', compact('products', $products));
     }
 
-    public function getAddToCart(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function getAddToCart(Request $request, $id)
     {
+        // Trying to get product from the database with the eloquent method 'find'
         $product = Product::find($id);
-        //check if cart has been stored in the session.
-        // If this is the case it will retrieve it with the get method
-        // If this is not the case it will be sett to Null
-        $oldCart = Session::has('cart') ? Session::get('cart') : null;
-        $cart = new Cart($oldCart);
+        /* Check if cart already exists.
+        If the cart does exist it wil retrieve it.
+        If the cart does not exist, it will be null */
+        $cart = new Cart();
         $cart->add($product, $product->id);
+
         $request->session()->put('cart', $cart);
-        return redirect()->route('product.index');
+
+        return back();
+    }
+
+    public function getReduceByOne($id)
+    {
+//        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart();
+        $cart->reduceByOne($id);
+
+        /*        $request->session()->put('cart', $cart);  */
+        return redirect()->route('shop.cart');
+    }
+
+    public function getRemoveItem(Request $request, $id)
+    {
+        $cart = new Cart();
+        $cart->removeItem($id);
+
+        $request->session()->put('cart', $cart);
+        return redirect()->route('shop.cart');
+    }
+
+    public function getAddByOne(Request $request, $id)
+    {
+        $cart = new Cart();
+        $cart->addByOne($id);
+
+        $request->session()->put('cart', $cart);
+        return redirect()->route('shop.cart');
+    }
+
+    public function getCart(Request $request)
+    {
+        if ($request->session()->has('cart')) {
+            return view('shop.cart');
+        }
+        $oldCart = $request->session()->get('cart');
+        $cart = new Cart($oldCart);
+
+        return view('shop.cart', ['products' => $cart->items, 'totalPrice' => $cart->totalPrice]);
+    }
+
+
+    /**
+     * success response method.
+     *
+     * @return Factory|Application|View
+     */
+    public function getCheckout(Request $request)
+    {
+        if (!$request->session()->has('cart')) {
+            return view('shop.cart');
+        }
+        $oldCart = $request->session()->get('cart');
+        $cart = new Cart($oldCart);
+        $total = $cart->totalPrice;
+        $products = Product::all();
+
+        return view('shop.checkout', ['products' => $cart->items, 'totalPrice' => $cart->totalPrice]);
+    }
+
+    /**
+     * success response method.
+     * @return RedirectResponse
+     */
+    public function postCheckout(Request $request)
+    {
+        $hasCart = $request->session()->has('cart');
+        $oldCart = $request->session()->get('cart');
+        $cart = new Cart($oldCart);
+        $total = $cart->totalPrice;
+
+        if (!$hasCart) {
+            return redirect()->route('shop.checkout');
+        }
+
+        $order = new Order();
+        $order->cart = serialize($cart);
+        $order->address = $request->input('address');
+        $order->name = $request->input('name');
+        $order->save();
+
+        $request->session()->forget('cart');
+
+        return redirect()->route('product')->with(Session::flash('success', 'Payment successful!'));
+    }
+
+    public function filter(Request $request)
+    {
+//        dd($request);
+//        $products = DB::table('products')->where('category_id')
+        $products = Product::where('category_id', $request->input('categories'))->get();
+//        dd($request->input('categories'));
+        return view('products', compact('products', $products));
     }
 }
-        
